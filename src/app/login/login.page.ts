@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
+//import { AlertController } from '@ionic-angular';
 
 @Component({
   selector: 'app-login',
@@ -49,6 +50,14 @@ error_messages = {
   login() {
     console.log('email: ', this.loginForm.value.email);
     console.log('password: ', this.loginForm.value.password);
+
+    // let alert = this.alertCtrl.create({
+    //   title:'' ,
+    //   subTitle:'',
+    //   buttons: ['OK']
+
+    // });
+    // alert.present();
   }
 
 }
