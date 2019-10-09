@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color= "secondary">
+    <ion-buttons slot = "start">
+      <ion-back-button defaultHref = "/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Professional Register</ion-title>
+    <!-- <ion-buttons slot = "primary">
+      <ion-button (click) = "onCreateProfile()" [disabled]="!form.valid">
+        <ion-icon name = "checkmark" slot = "icon-only">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup] = "form">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md = "6" offset-md = "3">
+          <ion-card>
+              <ion-item>
+                  <ion-label position="floating">First Name</ion-label>
+                  <ion-input type = "text" formControlName = "fname"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Last Name</ion-label>
+                    <ion-input type = "text" formControlName = "lname"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label position="floating">Email</ion-label>
+                      <ion-input type = "email" formControlName = "email"></ion-input>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-label position="floating">Password</ion-label>
+                        <ion-input type = "password" formControlName = "password"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                          <ion-label position="floating">Confirm Password</ion-label>
+                          <ion-input type = "password" formControlName = "conpassword"></ion-input>
+                        </ion-item>
+                        <ion-list>
+                          <ion-list-header>Interesting About</ion-list-header>
+                        
+                          <ion-item>
+                            <ion-label>Fields</ion-label>
+                            <ion-select multiple="true" cancelText="Cancle" okText="OK">
+                              <ion-select-option value="agriculture">Agriculture</ion-select-option>
+                              <ion-select-option value="education">Education</ion-select-option>
+                              <ion-select-option value="engineering">Engineering</ion-select-option>
+                              <ion-select-option value="it">Information Technology</ion-select-option>
+                              <ion-select-option value="medical">Medical</ion-select-option>
+                              <ion-select-option value="textile">Textile</ion-select-option>
+                              <ion-select-option value="transport">Transport</ion-select-option>
+                            </ion-select>
+                          </ion-item>
+                        </ion-list>
+                        <div margin-vertical text-center>
+                        <ion-button expand="full" color = "primary" (click) = "onCreateProfile()" [disabled]="!form.valid" >Register</ion-button>  
+                        <ion-button expand="full" color = "secondary" id = "login" href ="professional-login">Login</ion-button>  
+                      </div>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

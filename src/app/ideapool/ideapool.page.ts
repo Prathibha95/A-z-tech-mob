@@ -1,5 +1,7 @@
+import { IdeaService } from './idea.service';
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Idea } from '../ideapool/idea';
+
 
 @Component({
   selector: 'app-ideapool',
@@ -7,20 +9,12 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./ideapool.page.scss'],
 })
 export class IdeapoolPage implements OnInit {
+loadedIdeas: Idea[];
 
-  constructor(private menu: MenuController) { }
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-  openEnd() {
-    this.menu.open('end');
-  }
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
+  constructor(private ideaService: IdeaService) { }
+
   ngOnInit() {
+    this.loadedIdeas = this.ideaService.ideas;
   }
 
 }

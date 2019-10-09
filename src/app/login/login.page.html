@@ -1,43 +1,14 @@
-<ion-header>
-  <ion-toolbar color= "secondary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <form [formGroup] = "loginForm">
-  <ion-grid>
-    <ion-row>
-      <ion-col size-md = "6" offset-md = "3">
-          <ion-card>
-              <ion-item>                 
-                  <ion-input formControlName="email" type = "text" placeholder="Email"></ion-input>
-                </ion-item>
-                <div class = "error-messages">
-                  <ng-container *ngFor = "let error of error_messages.email">
-                    <div class = "error-message" *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
-                      {{ error.message }}
-                    </div>
-                  </ng-container>
-                </div>
-                <ion-item>
-                    <ion-input formControlName="password" type = "password" placeholder= "Password"></ion-input>
-                  </ion-item>
-                  <div class = "error-messages">
-                      <ng-container *ngFor = "let error of error_messages.password">
-                        <div class = "error-message" *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
-                          {{ error.message }}
-                        </div>
-                      </ng-container>
-                    </div>
-                  
-                        <div margin-vertical text-center>
-                        
-                        <ion-button (click) = "login()" [disabled] = "!loginForm.valid" expand="block"  color = "primary" href = "ideapool" >Login</ion-button>  
-                      </div>
-          </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</form>
-</ion-content>
+
+  <ion-tabs>
+    <ion-tab-bar slot = "bottom" >
+      <ion-tab-button tab = "professional">
+        <ion-label>Professional</ion-label>
+        <ion-icon name="school"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab = "investor">
+          <ion-label>Investor</ion-label>
+          <ion-icon name="cash"></ion-icon>
+      </ion-tab-button> 
+    </ion-tab-bar> 
+  </ion-tabs>

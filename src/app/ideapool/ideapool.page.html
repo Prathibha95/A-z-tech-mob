@@ -1,62 +1,46 @@
 <ion-header>
   <ion-toolbar color = "success">
+    <ion-buttons slot = "start">
+      <ion-menu-button menu = "m1"></ion-menu-button>
+    </ion-buttons>
     <ion-title>Ideapool</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
-    
+  <ion-searchbar></ion-searchbar>  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+        <ion-card-header>
+            <ion-card-title>{{ loadedIdeas[0].title}}</ion-card-title>
+        </ion-card-header>
+          <ion-card-content>
+            <p>{{ loadedIdeas[0].description}}</p>
+            <p>{{ loadedIdeas[0].date}}</p>
+          </ion-card-content>
+          <!-- <div text-right>
+            <ion-button fill ="clear" color = "primary" routerDirection = "backward" [routerLink] = "['/','add-idea','loadedIdeas[0].id']"></ion-button>
+          </div> -->
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+          <ion-list>
+            <ion-item *ngFor="let idea of loadedIdeas.slice(1)">
+              <ion-label>
+                <h2>{{ idea.title }}</h2>
+                <p>{{ idea.description }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        </ion-row>
+  </ion-grid>
 </ion-content>
-<!-- <ion-menu side="start" menuId="first">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Start Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
 
-<ion-menu side="start" menuId="custom" class="my-custom-menu">
-  <ion-header>
-    <ion-toolbar color="tertiary">
-      <ion-title>Custom Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-menu side="end" type="push">
-  <ion-header>
-    <ion-toolbar color="danger">
-      <ion-title>End Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-router-outlet main></ion-router-outlet> -->
+ <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button href= "/add-idea">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
