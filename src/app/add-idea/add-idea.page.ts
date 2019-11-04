@@ -34,7 +34,7 @@ export class AddIdeaPage implements OnInit {
     // console.log(this.form);
     // this.navCtrl.navigateBack('/ideapool');
       this.modalCtrl.create({component: AddComponent,
-                             componentProps: {addIdea: this.idea}
+                             componentProps: {selectedIdea: this.ideas}
                             })
       .then(modalEl => {
         modalEl.present();

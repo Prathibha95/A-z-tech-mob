@@ -27,19 +27,18 @@
                 <ion-label>Friends</ion-label>
               </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle>
-              <ion-item lines = "none" (click)="onLogOut()" button>
-                  <ion-icon name="exit" slot = "start"></ion-icon>
-                  <ion-label>LogOut</ion-label>
-              </ion-item>
-          </ion-menu-toggle>
             <ion-menu-toggle>
                 <ion-item lines = "none">
                     <ion-icon name="bookmark" slot = "start"></ion-icon>
                     <ion-label>Saved</ion-label>
                 </ion-item>
             </ion-menu-toggle>
-            
+            <ion-menu-toggle>
+              <ion-item lines = "none" (click)="onLogOut()" button>
+                  <ion-icon name="exit" slot = "start"></ion-icon>
+                  <ion-label>LogOut</ion-label>
+              </ion-item>
+          </ion-menu-toggle>
         </ion-list>
     </ion-content>
   </ion-menu>

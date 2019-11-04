@@ -44,20 +44,14 @@
                         
                           <ion-item>
                             <ion-label>Fields</ion-label>
-                            <ion-select multiple="true" cancelText="Cancle" okText="OK">
-                              <ion-select-option value="agriculture">Agriculture</ion-select-option>
-                              <ion-select-option value="education">Education</ion-select-option>
-                              <ion-select-option value="engineering">Engineering</ion-select-option>
-                              <ion-select-option value="it">Information Technology</ion-select-option>
-                              <ion-select-option value="medical">Medical</ion-select-option>
-                              <ion-select-option value="textile">Textile</ion-select-option>
-                              <ion-select-option value="transport">Transport</ion-select-option>
+                            <ion-select type= "input" multiple="true" cancelText="Cancle" okText="OK" formControlName="field">
+                              <ion-select-option *ngFor="let field of fieldOptions" value="{{ field.value }}">{{ field.displayValue }}</ion-select-option>
                             </ion-select>
                           </ion-item>
                         </ion-list>
                         <div margin-vertical text-center>
-                        <ion-button expand="full" color = "primary" (click) = "onCreateProfile()" [disabled]="!form.valid" >Register</ion-button>  
-                        <ion-button expand="full" color = "secondary" id = "login" href ="professional-login">Login</ion-button>  
+                          <ion-button expand="full" color = "primary" (click) = "onCreateProfile()" [disabled]="!form.valid" >Register</ion-button>  
+                        <ion-button expand="full" color = "secondary" href ="professional-login">Login</ion-button>  
                       </div>
           </ion-card>
       </ion-col>

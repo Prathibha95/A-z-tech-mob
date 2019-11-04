@@ -39,16 +39,16 @@ export class EditIdeaPage implements OnInit {
       });
     });
 
-    this.Editform = new FormGroup({
-      title: new FormControl(this.idea.title, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      description: new FormControl(this.idea.description, {
-        updateOn: 'blur',
-        validators: [Validators.required, Validators.maxLength(500)]
-      })
-    });
+    // this.Editform = new FormGroup({
+    //   title: new FormControl(this.idea.title, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required]
+    //   }),
+    //   description: new FormControl(this.idea.description, {
+    //     updateOn: 'blur',
+    //     validators: [Validators.required, Validators.maxLength(500)]
+    //   })
+    // });
   }
   onEditIdea() {
   if (!this.Editform.valid) {

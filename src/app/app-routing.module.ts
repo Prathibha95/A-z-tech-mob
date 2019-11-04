@@ -6,8 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  { path: 'ideapool', loadChildren: './ideapool/ideapool.module#IdeapoolPageModule',  canLoad: [ServicesGuard]},
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canLoad: [ServicesGuard] },
+  { path: 'ideapool', loadChildren: './ideapool/ideapool.module#IdeapoolPageModule'},
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'add-idea', loadChildren: './add-idea/add-idea.module#AddIdeaPageModule' },
@@ -18,9 +18,10 @@ const routes: Routes = [
   // tslint:disable-next-line: max-line-length
   { path: 'professional-register', loadChildren: './register/professional-register/professional-register.module#ProfessionalRegisterPageModule' },
   { path: 'investor-register', loadChildren: './register/investor-register/investor-register.module#InvestorRegisterPageModule' },
-  { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule', canLoad: [ServicesGuard] },
+  { path: 'aboutus', loadChildren: './aboutus/aboutus.module#AboutusPageModule'},
   // tslint:disable-next-line: max-line-length
   { path: 'investor-ideapool', loadChildren: './ideapool/investor-ideapool/investor-ideapool.module#InvestorIdeapoolPageModule' },
+  { path: 'discover', loadChildren: './discover/discover.module#DiscoverPageModule' },
 ];
 
 @NgModule({
@@ -28,3 +29,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+// canLoad: [ServicesGuard]

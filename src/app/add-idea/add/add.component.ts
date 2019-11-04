@@ -9,6 +9,7 @@ import { Idea } from '../../ideapool/idea';
 })
 export class AddComponent implements OnInit {
 @Input() selectedIdea: Idea;
+
   constructor() { }
 
   ngOnInit() {}

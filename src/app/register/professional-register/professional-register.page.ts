@@ -8,6 +8,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ProfessionalRegisterPage implements OnInit {
   form: FormGroup;
+  public fieldOptions = [
+    { value: 'agriculture', displayValue: 'Agriculure' },
+    { value: 'education', displayValue: 'Education' },
+    { value: 'engineering', displayValue: 'Engineering'},
+    { value: 'it', displayValue: 'Information Technology' },
+    { value: 'medical', displayValue: 'Medical' },
+    { value: 'textile', displayValue: 'Textile' },
+    { value: 'transport', displayValue: 'Transport'},
+ ];
   constructor() {}
 
   ngOnInit() {
@@ -22,18 +31,25 @@ export class ProfessionalRegisterPage implements OnInit {
       }),
       email: new FormControl(null, {
         updateOn: 'blur',
-        validators: [Validators.required]
+        validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9.]+$')]
       }),
       password: new FormControl(null, {
         updateOn: 'blur',
-        validators: [Validators.required]
+        validators: [Validators.required, Validators.minLength(6), Validators.maxLength(30),
+                     Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-.]+$')]
       }),
       conpassword: new FormControl(null, {
         updateOn: 'blur',
-        validators: [Validators.required]
+        validators: [Validators.required, Validators.minLength(6), Validators.maxLength(30),
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-.]+$')]
+    }),
+    field: new FormControl({
+      updateOn: '',
+      validators: [Validators.required]
     })
   });
   }
+
   onCreateProfile() {
     console.log(this.form);
   }
