@@ -2,7 +2,7 @@ import { ServicesService } from './../../services.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-professional-login',
@@ -29,7 +29,8 @@ export class ProfessionalLoginPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private servicesService: ServicesService,
-    private router: Router
+    private router: Router,
+    public toastController: ToastController
   ) {
     this.loginForm = this.formBuilder.group({
       password: new FormControl( '' , Validators.compose([
@@ -50,10 +51,49 @@ export class ProfessionalLoginPage implements OnInit {
   ngOnInit() {
   }
 
-  OnLogin() {
-    this.servicesService.login();
-    this.router.navigateByUrl('/ideapool');
-    console.log('email: ', this.loginForm.value.email);
-    console.log('password: ', this.loginForm.value.password);
+  async presentValid() {
+    const toast = await this.toastController.create({
+      message: 'Logging successfull...',
+      position: 'middle',
+      color: 'light',
+      duration: 2000
+    });
+    toast.present();
   }
+
+  async presentInvalid() {
+    const toast = await this.toastController.create({
+      message: 'Logging Error... Please Check...',
+      position: 'middle',
+      color: 'light',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  onSubmit(loginForm) {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    const user = loginForm.value;
+    user['role'] = 'professional';
+    this.servicesService.loginUser(user).
+    subscribe(res => {
+      // console.log('hello')
+      console.log(res);
+      if (res.success) {
+        this.presentValid();
+        this.router.navigate(['/ideapool']);
+      } else {
+        // console.log('hello');
+        this.presentInvalid();
+      }
+    },
+    err => {
+    }
+    );
+    loginForm.reset();
+  }
+  get email() {return this.loginForm.get('email')}
+  get password() {return this.loginForm.get('password')}
 }

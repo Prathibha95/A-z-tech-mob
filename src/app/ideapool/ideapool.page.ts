@@ -1,6 +1,7 @@
 import { IdeaService } from './idea.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Idea } from '../ideapool/idea';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,13 +9,21 @@ import { Idea } from '../ideapool/idea';
   templateUrl: './ideapool.page.html',
   styleUrls: ['./ideapool.page.scss'],
 })
-export class IdeapoolPage implements OnInit {
+export class IdeapoolPage implements OnInit, OnDestroy {
 loadedIdeas: Idea[];
+private ideaSub: Subscription;
 
   constructor(private ideaService: IdeaService) { }
 
   ngOnInit() {
-    this.loadedIdeas = this.ideaService.ideas;
+    this.ideaSub = this.ideaService.ideas.subscribe(ideas => {
+      this.loadedIdeas = ideas;
+    });
+  }
+  ngOnDestroy() {
+    if (this.ideaSub) {
+      this.ideaSub.unsubscribe();
+        }
   }
 
 }

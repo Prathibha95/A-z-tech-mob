@@ -1,10 +1,9 @@
-import { AddComponent } from './add/add.component';
-import { Idea } from './../ideapool/idea';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NavController, ModalController } from '@ionic/angular';
-import { NgForm } from '@angular/forms';
-import { IdeaService } from '../ideapool/idea.service';
+import { Router } from '@angular/router';
+import { IdeaService } from './../ideapool/idea.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ServicesService } from './../services.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-idea',
@@ -12,50 +11,68 @@ import { IdeaService } from '../ideapool/idea.service';
   styleUrls: ['./add-idea.page.scss'],
 })
 export class AddIdeaPage implements OnInit {
-  idea: Idea;
-  @Input() selectedIdea: Idea;
-  @Input () selectedMode: 'select' | 'random';
-  @ViewChild('f', { static: true }) form: NgForm;
+  form: FormGroup;
+  constructor(private ideaService: IdeaService,
+              private router: Router,
+              private servicesServices: ServicesService,
+              public toastController: ToastController
+              ) {}
 
-  constructor(private route: ActivatedRoute,
-              private navCtrl: NavController,
-              private modalCtrl: ModalController,
-              private ideas: IdeaService ) { }
+              async successToast() {
+                const toast = await this.toastController.create({
+                  message: 'Adding Your Idea...',
+                  position: 'middle',
+                  color: 'light',
+                  duration: 2000
+                });
+                toast.present();
+              }
+              async errorToast() {
+                const toast = await this.toastController.create({
+                  message: 'Please Check...',
+                  position: 'middle',
+                  color: 'danger',
+                  duration: 2000
+                });
+                toast.present();
+              }
 
   ngOnInit() {
-    this.route.paramMap.subscribe( paramMap => {
-      if ( !paramMap.has('ideaId')) {
-        this.navCtrl.navigateBack('/ideapool');
-        return;
-      }
-    });
+    this.form = new FormGroup({
+      title: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.maxLength(30)]
+      }),
+      category: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.maxLength(30)]
+      }),
+      content: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required, Validators.maxLength(1000)]
+      }),
+      publishdate: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      })
+  });
   }
-   onAddIdea() {
-    // console.log(this.form);
-    // this.navCtrl.navigateBack('/ideapool');
-      this.modalCtrl.create({component: AddComponent,
-                             componentProps: {selectedIdea: this.ideas}
-                            })
-      .then(modalEl => {
-        modalEl.present();
-      });
-
-      if (!this.form.valid) {
-        return;
-      }
-      this.modalCtrl.dismiss({ addingData: {
-        // tslint:disable-next-line: no-string-literal
-        Title: this.form.value['title'],
-        // tslint:disable-next-line: no-string-literal
-        Field: this.form.value['field'],
-        // tslint:disable-next-line: no-string-literal
-        Description: this.form.value['description'],
-        // tslint:disable-next-line: no-string-literal
-        PublishDate: this.form.value['publishdate']
-
-      }}, 'confirm');
-  }
-  onCancleAdd() {
-    this.modalCtrl.dismiss(null, 'cancle');
-  }
+   addIdea(form) {
+    console.log(this.form);
+    const uId = this.servicesServices.userId;
+    if (!this.form.valid) {
+      return;
+    }
+    const i = form.value;
+    const idea = {
+      title: i.title,
+      category: i.category,
+      type: 'private',
+      content: i.content
+    };
+    this.successToast();
+    this.ideaService.addIdea(uId, idea).subscribe(() => {
+    this.router.navigate(['/ideapool']);
+        });
+    }
 }

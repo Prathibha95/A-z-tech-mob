@@ -13,33 +13,35 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-  <form [formGroup] = "form">
+  
+  <form [formGroup] = "form" (ngSubmit)="onSubmit(form)" >
   <ion-grid>
     <ion-row>
       <ion-col size-md = "6" offset-md = "3">
           <ion-card>
               <ion-item>
                   <ion-label position="floating">First Name</ion-label>
-                  <ion-input type = "text" formControlName = "fname"></ion-input>
+                  <ion-input type = "text" class="form-control" formControlName = "firstName"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating">Last Name</ion-label>
-                    <ion-input type = "text" formControlName = "lname"></ion-input>
+                    <ion-input type = "text" class="form-control" formControlName = "lastName"></ion-input>
                   </ion-item>
                   <ion-item>
                       <ion-label position="floating">Email</ion-label>
-                      <ion-input type = "email" formControlName = "email"></ion-input>
+                      <ion-input type = "email" class="form-control" formControlName = "email"></ion-input>
                     </ion-item> 
                     <ion-item>
                         <ion-label position="floating">Password</ion-label>
-                        <ion-input type = "password" formControlName = "password"></ion-input>
+                        <ion-input type = "password" class="form-control" formControlName = "password"></ion-input>
                       </ion-item>
                       <ion-item>
                           <ion-label position="floating">Confirm Password</ion-label>
-                          <ion-input type = "password" formControlName = "conpassword"></ion-input>
+                          <ion-input type = "password" class="form-control" formControlName = "cpassword"></ion-input>
                         </ion-item>
-                        <ion-list>
+                        <!-- <ion-list>
                           <ion-list-header>Interesting About</ion-list-header>
                         
                           <ion-item>
@@ -48,9 +50,9 @@
                               <ion-select-option *ngFor="let field of fieldOptions" value="{{ field.value }}">{{ field.displayValue }}</ion-select-option>
                             </ion-select>
                           </ion-item>
-                        </ion-list>
+                        </ion-list> -->
                         <div margin-vertical text-center>
-                          <ion-button expand="full" color = "primary" (click) = "onCreateProfile()" [disabled]="!form.valid" >Register</ion-button>  
+                          <ion-button expand="full" color = "primary" [disabled]="!form.valid" type="submit">Register</ion-button>  
                         <ion-button expand="full" color = "secondary" href ="professional-login">Login</ion-button>  
                       </div>
           </ion-card>

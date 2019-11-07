@@ -12,6 +12,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+        <ion-card>
         <ion-card-header>
             <ion-card-title>{{ loadedIdeas[0].title}}</ion-card-title>
         </ion-card-header>
@@ -19,19 +20,26 @@
             <p>{{ loadedIdeas[0].description}}</p>
             <p>{{ loadedIdeas[0].date}}</p>
           </ion-card-content>
-          <!-- <div text-right>
-            <ion-button fill ="clear" color = "primary" routerDirection = "backward" [routerLink] = "['/','add-idea','loadedIdeas[0].id']"></ion-button>
-          </div> -->
+          <div text-right padding>
+              <ion-button fill ="clear" color = "primary" routerLink = "/discover" >More</ion-button>
+              
+            </div>
+        </ion-card>
+          
       </ion-col>
     </ion-row>
     <ion-row>
         <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
           <ion-list>
-            <ion-item *ngFor="let idea of loadedIdeas.slice(1)">
+            <ion-item *ngFor="let idea of loadedIdeas.slice(1)"
+            routerLink = "/discover"
+            detail>
+            
               <ion-label>
                 <h2>{{ idea.title }}</h2>
                 <p>{{ idea.description }}</p>
               </ion-label>
+            
             </ion-item>
           </ion-list>
         </ion-col>

@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-@Component({
-  selector: 'app-auth',
-  templateUrl: './auth.page.html',
-  styleUrls: ['./auth.page.scss'],
-})
-export class AuthPage implements OnInit {
+export function PasswordValidator(confirmPasswordInput: string) {
+  let confirmPasswordControl: FormControl;
+  let passwordControl: FormControl;
 
-  constructor() { }
+  return (control: FormControl) => {
+    if (!control.parent) {
+      return null;
+    }
 
-  ngOnInit() {
-  }
+    if (!confirmPasswordControl) {
+      confirmPasswordControl = control;
+      passwordControl = control.parent.get(confirmPasswordInput) as FormControl;
+      passwordControl.valueChanges.subscribe(() => {
+        confirmPasswordControl.updateValueAndValidity();
+      });
+    }
 
+    if (
+      passwordControl.value !==
+      confirmPasswordControl.value
+    ) {
+      return {
+        notMatch: true
+      };
+    }
+    return null;
+  };
 }

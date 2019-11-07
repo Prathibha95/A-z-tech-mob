@@ -1,24 +1,28 @@
 import { IdeaService } from './../idea.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Idea} from '../../ideapool/idea';
 import { ModalController } from '@ionic/angular';
 import { InvestComponent } from '../../ideapool/investor-ideapool/invest/invest.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-investor-ideapool',
   templateUrl: './investor-ideapool.page.html',
   styleUrls: ['./investor-ideapool.page.scss'],
 })
-export class InvestorIdeapoolPage implements OnInit {
+export class InvestorIdeapoolPage implements OnInit, OnDestroy {
   loadedIdeas: Idea[];
   idea: Idea;
+  private ideaSub: Subscription;
 
   constructor(private ideaService: IdeaService,
               private modalCtrl: ModalController
               ) { }
 
   ngOnInit() {
-    this.loadedIdeas = this.ideaService.ideas;
+    this.ideaSub = this.ideaService.ideas.subscribe(ideas => {
+      this.loadedIdeas = ideas;
+    });
   }
   onInvestIdea() {
     this.modalCtrl.create({component: InvestComponent,
@@ -27,5 +31,11 @@ export class InvestorIdeapoolPage implements OnInit {
                           .then(modalEl => {
                             modalEl.present();
     });
+  }
+
+  ngOnDestroy() {
+    if (this.ideaSub) {
+      this.ideaSub.unsubscribe();
+        }
   }
 }
