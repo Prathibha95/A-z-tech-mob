@@ -8,6 +8,25 @@
       </ion-header>
       
       <ion-content>
-        
+          <!-- <ion-button fill ="outline" color = "primary" expand = "full">View My Ideas</ion-button>   -->
+          <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+                  <ion-item *ngFor="let idea of ideas">
+                  <ion-card>
+                  <ion-card-header>
+                      <ion-card-title>{{ idea.category }}</ion-card-title>
+                  </ion-card-header>
+                    <ion-card-content>
+                      <p>{{ idea.title }}</p>
+                      <p>{{ idea.content}}</p>
+                    </ion-card-content>
+                    <div text-right padding>
+                      </div>
+                  </ion-card>
+                </ion-item> 
+                </ion-col>
+              </ion-row>
+            </ion-grid>
       </ion-content>
       

@@ -35,7 +35,6 @@ export class InvestorRegisterPage implements OnInit {
                   ]]
                 });
               }
-  
                 async successToast() {
                 const toast = await this.toastController.create({
                   message: 'Register_Investor successfull...',

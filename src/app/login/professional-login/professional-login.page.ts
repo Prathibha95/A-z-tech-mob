@@ -82,6 +82,7 @@ export class ProfessionalLoginPage implements OnInit {
       // console.log('hello')
       console.log(res);
       if (res.success) {
+        localStorage.setItem('token', res.token);
         this.presentValid();
         this.router.navigate(['/ideapool']);
       } else {

@@ -9,42 +9,36 @@
 
 <ion-content>
   <ion-searchbar></ion-searchbar>  
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
-        <ion-card>
-        <ion-card-header>
-            <ion-card-title>{{ loadedIdeas[0].title}}</ion-card-title>
-        </ion-card-header>
-          <ion-card-content>
-            <p>{{ loadedIdeas[0].description}}</p>
-            <p>{{ loadedIdeas[0].date}}</p>
-          </ion-card-content>
-          <div text-right padding>
-              <ion-button fill ="clear" color = "primary" routerLink = "/discover" >More</ion-button>
-              
-            </div>
-        </ion-card>
-          
-      </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
-          <ion-list>
-            <ion-item *ngFor="let idea of loadedIdeas.slice(1)"
-            routerLink = "/discover"
-            detail>
-            
-              <ion-label>
-                <h2>{{ idea.title }}</h2>
-                <p>{{ idea.description }}</p>
-              </ion-label>
-            
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-list-header>Select Category</ion-list-header>
+      <ion-item *ngFor="let field of fieldOptions">
+        <ion-label>categories</ion-label>
+          <ion-select type= "input" multiple="false" (click)="getCategory(field.value)">
+            <ion-select-option  value="{{ field.value }}" >{{ field.displayValue }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-grid>
+          <ion-row></ion-row>
+            <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+              <ion-item *ngFor="let idea of ideas">
+              <ion-card>
+              <ion-card-header>
+                  <ion-card-title>{{ idea.category }}</ion-card-title>
+              </ion-card-header>
+                <ion-card-content>
+                  <p>{{ idea.title }}</p>
+                  <p>{{ idea.content}}</p>
+                </ion-card-content>
+                <div text-right padding>
+                    <ion-button fill ="clear" color = "primary" routerLink = "/discover" >More</ion-button>  
+                  </div>
+              </ion-card>
+            </ion-item> 
+            </ion-col>
+         
+        </ion-grid>
+      
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button href= "/add-idea">
       <ion-icon name="add"></ion-icon>

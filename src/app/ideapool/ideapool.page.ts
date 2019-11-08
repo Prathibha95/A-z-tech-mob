@@ -1,7 +1,7 @@
+import { ServicesService } from './../services.service';
+import { Router } from '@angular/router';
 import { IdeaService } from './idea.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Idea } from '../ideapool/idea';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -9,21 +9,32 @@ import { Subscription } from 'rxjs';
   templateUrl: './ideapool.page.html',
   styleUrls: ['./ideapool.page.scss'],
 })
-export class IdeapoolPage implements OnInit, OnDestroy {
-loadedIdeas: Idea[];
-private ideaSub: Subscription;
+export class IdeapoolPage implements OnInit {
+viewIdeas: any;
+ideas: any;
+category: any;
+  public fieldOptions = [
+    { value: 'Information Technology', displayValue: 'Information Technology' },
+    { value: 'Health', displayValue: 'Health' },
+    { value: 'Marketing', displayValue: 'Marketing'},
+ ];
 
-  constructor(private ideaService: IdeaService) { }
+  constructor(private ideaService: IdeaService,
+              private router: Router,
+              private servicesService: ServicesService) { }
 
+              upvotes: any;
+              downvotes: any;
   ngOnInit() {
-    this.ideaSub = this.ideaService.ideas.subscribe(ideas => {
-      this.loadedIdeas = ideas;
-    });
   }
-  ngOnDestroy() {
-    if (this.ideaSub) {
-      this.ideaSub.unsubscribe();
-        }
+
+  getCategory(category) {
+    console.log(category);
+    this.ideaService.categoryView(category)
+    .subscribe(res =>  {
+      this.ideas = res;
+      console.log(this.ideas);
+    });
   }
 
 }

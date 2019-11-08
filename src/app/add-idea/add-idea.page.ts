@@ -54,7 +54,7 @@ export class AddIdeaPage implements OnInit {
       publishdate: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
-      })
+            })
   });
   }
    addIdea(form) {
@@ -74,5 +74,6 @@ export class AddIdeaPage implements OnInit {
     this.ideaService.addIdea(uId, idea).subscribe(() => {
     this.router.navigate(['/ideapool']);
         });
+    form.reset();
     }
 }

@@ -1,10 +1,33 @@
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ServicesService } from './../services.service';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Idea } from '../ideapool/idea';
 import { take, tap, map, delay } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+export interface IdeaDetails {
+  id: number;
+  client_ID: number;
+  idea_name: string;
+  idea_category: string;
+  idea_description: string;
+}
+export interface IdeaPayload {
+  id: number;
+  client_ID: number;
+  idea_name: string;
+  idea_category: string;
+  idea_description: string;
+}
+export interface ConfirmedPro {
+  id: number;
+  developer_ID: number;
+  client_ID: number;
+  idea_ID: number;
+  category: string;
+  isCompleted: boolean;
+  }
 
 @Injectable({
   providedIn: 'root'
@@ -51,9 +74,24 @@ get ideas() {
     return this.http.post(environment.url + '/addidea/' + uId, idea);
 }
 
-  viewIdea(uId){
-  return this.http.get(environment.url + '/viewidea/' + uId);
+  viewIdea(uId) {
+  return this.http.get(environment.url + '/viewidea/' + uId).pipe(map((res:any) => res));
 }
+
+updateIdeaup(iId, vote) {
+  return this.http.put(environment.url + '/updateideaup/' + iId, vote).pipe(map((res:any) => res));
+}
+
+updateIdeadown(iId, vote) {
+  return this.http.put(environment.url + '/updateideadown/' + iId, vote).pipe(map((res:any) => res));
+}
+
+categoryView(category) {
+  return this.http.get(environment.url + '/categoryview/' + category ).pipe(map((res:any) => res));
+}
+
+// ideas = new EventEmitter<string>()
+
 
     // this._ideas.pipe(take(1), delay(1000), tap(ideas => {
     //   setTimeout( () => {
@@ -61,5 +99,10 @@ get ideas() {
     //   }, 3000);
     // }));
     // this._ideas.push(newIdea);
+
+
+public Confirmedidea(details: ConfirmedPro): Observable<any> {
+  return this.http.post(`/users/idea/acceptPro`, details);
+}
 }
 
