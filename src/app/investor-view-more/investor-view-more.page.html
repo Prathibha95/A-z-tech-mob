@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar color= "secondary">
+      <ion-buttons slot= "start">
+        <ion-back-button defaultHref ="/investor-ideapool"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Innovative Idea</ion-title>
+    </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+        <ion-grid>
+            <ion-row>
+              <ion-col> 
+                <ion-item>
+                <ion-card> 
+                <ion-card-header>
+                    <ion-card-title>{{ idea.category }}</ion-card-title>
+                </ion-card-header>
+                  <ion-card-content>
+                    <p>{{ idea.title }}</p>
+                    <p>{{ idea.content}}</p>
+                  </ion-card-content>
+
+                      <ion-button fill ="clear" color = "primary">View</ion-button>  
+ 
+                </ion-card>
+              </ion-item> 
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </ion-content>

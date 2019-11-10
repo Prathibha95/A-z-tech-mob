@@ -11,6 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class InvestorLoginPage implements OnInit {
   loginForm: FormGroup;
+  loginErr: boolean = false;
   error_messages = {
     email: [
       { type: 'required', message: 'Email is required.'},
@@ -51,9 +52,9 @@ export class InvestorLoginPage implements OnInit {
   }
   async presentValid() {
     const toast = await this.toastController.create({
-      message: 'Logging successfull...',
+      message: 'Investor_Logging successfull...',
       position: 'middle',
-      color: 'light',
+      color: 'success',
       duration: 2000
     });
     toast.present();
@@ -61,37 +62,46 @@ export class InvestorLoginPage implements OnInit {
 
   async presentInvalid() {
     const toast = await this.toastController.create({
-      message: 'Logging Error... Please Check...',
+      message: 'Invalid User... Please Check...',
       position: 'middle',
-      color: 'light',
+      color: 'danger',
       duration: 2000
     });
     toast.present();
-     }
+  }
 
-     onSubmit(loginForm) {
-      if (!this.loginForm.valid) {
-        return;
-      }
-      const user = loginForm.value;
-      user['role'] = 'investor';
-      this.servicesService.loginUser(user).
-      subscribe(res => {
-        // console.log('hello')
-        console.log(res);
-        if (res.success) {
-          this.presentValid();
-          this.router.navigate(['/investor-ideapool']);
+  onSubmit(loginForm) {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    const user = loginForm.value;
+    user['role'] = 'investor';
+    this.servicesService.loginUser(user).
+    subscribe(res => {
+      // console.log('hello')
+      console.log(res);
+      if (res.success) {
+        localStorage.setItem('token', res.token);
+        this.presentValid();
+        this.router.navigate(['/ideapool']);
+      } else {
+        // console.log('hello');
+        // this.presentInvalid();
+        if (!res.confirmed) {
+          this.presentInvalid();
         } else {
-          // console.log('hello');
+          this.loginErr = true;
           this.presentInvalid();
         }
-      },
-      err => {
       }
-      );
-      loginForm.reset();
+    },
+    err => {
+    this.loginErr = true;
+    this.presentInvalid();
     }
-    get email() {return this.loginForm.get('email')}
-    get password() {return this.loginForm.get('password')}
+    );
+    loginForm.reset();
   }
+  get email() {return this.loginForm.get('email')}
+  get password() {return this.loginForm.get('password')}
+}

@@ -11,6 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class ProfessionalLoginPage implements OnInit {
   loginForm: FormGroup;
+  loginErr: boolean = false;
   error_messages= {
     email: [
       { type: 'required', message: 'Email is required.'},
@@ -49,13 +50,20 @@ export class ProfessionalLoginPage implements OnInit {
   }
 
   ngOnInit() {
+    // if (this.servicesService.currentUser) {
+    //   if (this.servicesService.currentUser.role === "professional") {
+    //     this.router.navigate(['/professional-login']);
+    //   } else {
+    //     this.router.navigate(['/investor-login']);
+    //   }
+    // }
   }
 
   async presentValid() {
     const toast = await this.toastController.create({
       message: 'Logging successfull...',
       position: 'middle',
-      color: 'light',
+      color: 'success',
       duration: 2000
     });
     toast.present();
@@ -63,9 +71,9 @@ export class ProfessionalLoginPage implements OnInit {
 
   async presentInvalid() {
     const toast = await this.toastController.create({
-      message: 'Logging Error... Please Check...',
+      message: 'Invalid User... Please Check...',
       position: 'middle',
-      color: 'light',
+      color: 'danger',
       duration: 2000
     });
     toast.present();
@@ -87,10 +95,18 @@ export class ProfessionalLoginPage implements OnInit {
         this.router.navigate(['/ideapool']);
       } else {
         // console.log('hello');
-        this.presentInvalid();
+        // this.presentInvalid();
+        if (!res.confirmed) {
+          this.presentInvalid();
+        } else {
+          this.loginErr = true;
+          this.presentInvalid();
+        }
       }
     },
     err => {
+    this.loginErr = true;
+    this.presentInvalid();
     }
     );
     loginForm.reset();

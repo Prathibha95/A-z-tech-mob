@@ -16,21 +16,21 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-              <ion-item lines = "none" routerLink="/aboutus">
-                <ion-icon name="information-circle" slot = "start"></ion-icon>
-                <ion-label>About Us</ion-label>
+              <ion-item lines = "none" routerLink="/professional-edit-profile">
+                <ion-icon name="person" slot="start"></ion-icon>
+                <ion-label>Edit Profile</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-              <ion-item lines = "none" routerLink="/profile">
+              <ion-item lines = "none" routerLink="/investor-list">
                 <ion-icon name="contacts" slot = "start"></ion-icon>
-                <ion-label>Friends</ion-label>
+                <ion-label>Investor List</ion-label>
               </ion-item>
           </ion-menu-toggle>
             <ion-menu-toggle>
-                <ion-item lines = "none">
-                    <ion-icon name="bookmark" slot = "start"></ion-icon>
-                    <ion-label>Saved</ion-label>
+                <ion-item lines = "none" routerLink="/aboutus">
+                   <ion-icon name="information-circle" slot = "start"></ion-icon>
+                    <ion-label>AboutUs</ion-label>
                 </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle>
@@ -42,5 +42,6 @@
         </ion-list>
     </ion-content>
   </ion-menu>
+  
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>

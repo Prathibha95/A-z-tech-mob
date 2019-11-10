@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar color = "success">
+      <ion-buttons slot = "start">
+          <ion-back-button defaultHref ="/ideapool"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Investor List</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <div class="ion-padding ion-text-right">
+        <ion-grid>
+            <ion-row>
+              <ion-col size="6"  offset-md= "3" text-left>
+                <ion-item *ngFor="let user of users">
+                <ion-card>
+                    <p>{{ user.firstName }} {{  user.lastName}}</p>
+                    
+                      <ion-button fill ="clear" color = "primary" >View</ion-button>  
+                </ion-card>
+              </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+  </ion-content>
+  

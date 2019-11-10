@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from './../../services.service';
-import { HttpClient } from '@angular/common/http';
 import { PasswordValidator } from 'src/app/auth/auth.page';
 import { ToastController } from '@ionic/angular';
 
@@ -16,7 +15,7 @@ export class ProfessionalRegisterPage implements OnInit {
   form;
   has: boolean = false;
   regErr: boolean;
-  success: boolean;
+
 //   public fieldOptions = [
 //     { value: 'agriculture', displayValue: 'Agriculure' },
 //     { value: 'education', displayValue: 'Education' },
@@ -28,7 +27,6 @@ export class ProfessionalRegisterPage implements OnInit {
 //  ];
   constructor(private servicesService: ServicesService,
               private router: Router,
-              private http: HttpClient,
               private fb: FormBuilder,
               public toastController: ToastController
               ) {
@@ -101,14 +99,20 @@ export class ProfessionalRegisterPage implements OnInit {
         console.log(res);
         if (res.success) {
           this.successToast( );
-          //localStorage.setItem('token', res.token);
+          localStorage.setItem('token', res.token);
           this.router.navigate(['/professional-login']);
         } else {
-            this.errorToast( );
+          if (res.has) {
+            this.has = true;
+          } else {
+            this.regErr = true;
+            this.errorToast();
           }
+        }
+      }, err => {
+        this.regErr = true;
+        this.errorToast();
       });
     form.reset();
-  // get email() {return this.loginForm.get('email')}
-  // get password() {return this.loginForm.get('password')}
-}
+  }
 }

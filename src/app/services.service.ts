@@ -107,5 +107,19 @@ private token: string;
     return this.http.post(environment.url + '/register', user).pipe(map((res:any) => res));
   }
 
+  userProfile(uId) {
+    return this.http.get(environment.url + '/userProfile/' + uId).pipe(map((res:any) => res));
+}
+
+uploadImage(selectedFile: File, uId) {
+  const fd = new FormData();
+  fd.append('image', selectedFile, selectedFile.name);
+  return this.http.post(environment.url + '/userImageUpload/' + uId, fd).pipe(map((res:any) => res));
+}
+
+editProfile(uId, user) {
+  return this.http.put(environment.url + '/editProfile/' + uId, user).pipe(map((res:any) => res));
+}
+
 }
 

@@ -63,15 +63,15 @@ get ideas() {
   constructor(private servicesService: ServicesService,
               private http: HttpClient ) { }
 
-  getIdea( id: string) {
-    return this.ideas.pipe(take(1), map(ideas => {
-      return {...ideas.find(p => p.id === id)};
-    })
-    );
-  }
+  // getIdea( id: string) {
+  //   return this.ideas.pipe(take(1), map(ideas => {
+  //     return {...ideas.find(p => p.id === id)};
+  //   })
+  //   );
+  // }
 
   addIdea(uId, idea) {
-    return this.http.post(environment.url + '/addidea/' + uId, idea);
+    return this.http.post(environment.url + '/addidea/' + uId, idea).pipe(map((res:any) => res));;
 }
 
   viewIdea(uId) {
@@ -88,6 +88,23 @@ updateIdeadown(iId, vote) {
 
 categoryView(category) {
   return this.http.get(environment.url + '/categoryview/' + category ).pipe(map((res:any) => res));
+}
+
+viewIdeaById(iId) {
+  return this.http.get(environment.url + '/viewideabyid/' + iId).pipe(map((res:any) => res));
+}
+
+editIdea(iId, idea) {
+  return this.http.put(environment.url + '/editidea/' + iId, idea).pipe(map((res:any) => res));
+}
+
+
+deleteIdea(iId) {
+  return this.http.delete(environment.url + '/deleteidea/' + iId).pipe(map((res:any) => res));
+}
+
+viewAllUsers(role) {
+  return this.http.get(environment.url + '/viewAllUsers/' + role).pipe(map((res:any) => res));
 }
 
 // ideas = new EventEmitter<string>()

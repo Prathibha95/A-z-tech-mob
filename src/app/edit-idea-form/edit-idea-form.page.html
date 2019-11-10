@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar color = "secondary">
+      <ion-title>Edit Idea Form</ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/ideapool"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <form [formGroup]="form" (ngSubmit)="editIdea(form)">
+<ion-grid>
+  <ion-row>
+    <ion-col size-md = "6" offset-md = "3">
+      <ion-card>
+        <ion-item>
+          <ion-label floating>Idea Title</ion-label>
+          <ion-input type="text" id="title" class="form-control disabled" [placeholder]="idea.title"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Idea Category</ion-label>
+            <ion-input type="text" id="category" class="form-control disabled" [placeholder]="idea.category"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Idea Content</ion-label>
+          <ion-textarea rows="8" id="content" class="form-control" formControlName="content" ng-model="name"></ion-textarea>
+        </ion-item>
+      </ion-card>
+      <ion-button type="submit" shape="round" size = "large">Save</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</form>
+</ion-content>
+<!-- <form [formGroup]="form" (ngSubmit)="editIdea(form)">
+        
+        
+    <ion-input type="text" id="title" class="form-control disabled" [placeholder]="idea.title"></ion-input>
+   
+
+    
+    <ion-input type="text" id="category" class="form-control disabled" [placeholder]="idea.category"></ion-input>
+    
+    
+  
+    <ion-textarea rows="8" id="content" class="form-control" formControlName="content" ng-model="name"></ion-textarea>
+    
+
+    
+        
+        <ion-button type="submit" shape="round" size = "large">Save</ion-button>
+        
+    </form> -->

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from './../../services.service';
-import { HttpClient } from '@angular/common/http';
 import { PasswordValidator } from 'src/app/auth/auth.page';
 import { ToastController } from '@ionic/angular';
 
@@ -13,6 +12,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class InvestorRegisterPage implements OnInit {
   form;
+  has: boolean;
+  regErr: boolean;
 
   constructor(private servicesService: ServicesService,
               private router: Router,
@@ -39,7 +40,7 @@ export class InvestorRegisterPage implements OnInit {
                 const toast = await this.toastController.create({
                   message: 'Register_Investor successfull...',
                   position: 'middle',
-                  color: 'light',
+                  color: 'success',
                   duration: 2000
                 });
                 toast.present();
@@ -49,6 +50,15 @@ export class InvestorRegisterPage implements OnInit {
                   message: 'Register_Investor Error... Please Check...',
                   position: 'middle',
                   color: 'danger',
+                  duration: 2000
+                });
+                toast.present();
+              }
+              async warnToast() {
+                const toast = await this.toastController.create({
+                  message: 'Email already registered...',
+                  position: 'middle',
+                  color: 'warning',
                   duration: 2000
                 });
                 toast.present();
@@ -79,15 +89,23 @@ export class InvestorRegisterPage implements OnInit {
     user['role'] = 'investor';
     this.servicesService.registerUser(user).
       subscribe(res => {
-        console.log('hello');
+        // console.log('hello');
         console.log(res);
         if (res.success) {
           this.successToast( );
-          //localStorage.setItem('token', res.token);
+          localStorage.setItem('token', res.token);
           this.router.navigate(['/investor-login']);
         } else {
-            this.errorToast( );
-          }
+            if (res.has) {
+              this.has = true;
+              this.warnToast();
+          } else {
+            this.regErr = true;
+            this.errorToast();
+          }}
+      },
+      err => {
+        this.errorToast();
       });
     form.reset();
   // get email() {return this.loginForm.get('email')}

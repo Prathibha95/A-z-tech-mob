@@ -9,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  viewIdeas: any;
+
   ideas: any;
-  category: any;
-  
+  idealist: any;
+  idealistreverse: any;
+  professional = {
+    email: '',
+    name: '',
+    country: '',
+    imageURL: '',
+    fname: '',
+    lname: '',
+  };
   constructor(
     private servicesService: ServicesService,
     private router: Router,
@@ -27,10 +35,20 @@ export class ProfilePage implements OnInit {
     console.log(uId);
 
     this.ideaService.viewIdea(uId).subscribe(res => {
-      console.log(res);
-      // console.log( this.ideas );
-      console.log(this.ideas.idea);
+      this.ideas = res;
+      this.idealist = this.ideas.idea;
+      this.idealistreverse = this.idealist.reverse();
+      console.log(this.ideas);
+    });
+    this.servicesService.userProfile(uId).subscribe(res => {
+      console.log(uId);
+      const users = res;
+      console.log(users);
+      this.professional.imageURL = users.imageURL;
+      this.professional.name = users.firstName + ' ' + users.lastName;
     });
   }
-
+  editIdea(ideaID) {
+    this.router.navigate(['/edit-idea'], { queryParams: { idea_id: ideaID } });
+  }
 }

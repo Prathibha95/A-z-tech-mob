@@ -59,7 +59,7 @@ export class AddIdeaPage implements OnInit {
   }
    addIdea(form) {
     console.log(this.form);
-    const uId = this.servicesServices.userId;
+    const uId = this.servicesServices.currentUser._id;
     if (!this.form.valid) {
       return;
     }
@@ -71,9 +71,11 @@ export class AddIdeaPage implements OnInit {
       content: i.content
     };
     this.successToast();
-    this.ideaService.addIdea(uId, idea).subscribe(() => {
-    this.router.navigate(['/ideapool']);
+    this.ideaService.addIdea(uId, idea).subscribe(res => {
+          console.log(res);
         });
     form.reset();
+    this.router.navigate(['/ideapool']);
+
     }
 }

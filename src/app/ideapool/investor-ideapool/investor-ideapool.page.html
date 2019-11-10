@@ -1,47 +1,48 @@
 <ion-header>
-  <ion-toolbar color = "success">
-    <ion-buttons slot = "start">
-      <ion-menu-button menu = "m1"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Ideapool</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar color = "success">
+  
+      <ion-title>Investor Ideapool</ion-title>
+      <ion-buttons slot = "start">
+        
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-searchbar></ion-searchbar>  
+    <ion-list>
+      <ion-list-header>Select Category</ion-list-header>
+        <ion-item *ngFor="let field of fieldOptions">
+          <ion-label>category...</ion-label>
+            <ion-select type= "input" multiple="false" (click)="getCategory(field.value)">
+              <ion-select-option  value="{{ field.value }}" >{{ field.displayValue }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
+                <ion-item *ngFor="let idea of ideas">
+                <ion-card>
+                <ion-card-header>
+                    <ion-card-title>{{ idea.category }}</ion-card-title>
+                </ion-card-header>
+                  <ion-card-content>
+                    <p>{{ idea.title }}</p>
+                    <p>{{ idea.content}}</p>
+                  </ion-card-content>
 
-<ion-content>
-  <ion-searchbar></ion-searchbar>  
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
-        <ion-card-header>
-            <ion-card-title>{{ loadedIdeas[0].title}}</ion-card-title>
-        </ion-card-header>
-          <ion-card-content>
-            <p>{{ loadedIdeas[0].description}}</p>
-            <p>{{ loadedIdeas[0].date}}</p>
-              <ion-button color= "primary" margin (click) = "onInvestIdea()">Invest</ion-button>
-          </ion-card-content>
-          <!-- <div text-right>
-            <ion-button fill ="clear" color = "primary" routerDirection = "backward" [routerLink] = "['/','add-idea','loadedIdeas[0].id']"></ion-button>
-          </div> -->
-      </ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col size="12" size-sm = "8" offset-sm= "2" text-left> 
-          <ion-list>
-            <ion-item *ngFor="let idea of loadedIdeas.slice(1)">
-              <ion-label>
-                <h2>{{ idea.title }}</h2>
-                <p>{{ idea.description }}</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        </ion-row>
-  </ion-grid>
-</ion-content>
-
- <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button href= "/add-idea">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+                      <ion-button fill ="clear" color = "primary" (click)= "viewIdea(idea._id)">view</ion-button>  
+ 
+                </ion-card>
+              </ion-item> 
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+              <ion-fab-button href = '/investor-profile' color = "tertiary">
+                <ion-icon name="arrow-dropright"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+  </ion-content>
+  

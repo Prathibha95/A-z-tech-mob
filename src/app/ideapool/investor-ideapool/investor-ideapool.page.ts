@@ -1,41 +1,43 @@
 import { IdeaService } from './../idea.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Idea} from '../../ideapool/idea';
-import { ModalController } from '@ionic/angular';
-import { InvestComponent } from '../../ideapool/investor-ideapool/invest/invest.component';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ServicesService } from './../../services.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-investor-ideapool',
   templateUrl: './investor-ideapool.page.html',
   styleUrls: ['./investor-ideapool.page.scss'],
 })
-export class InvestorIdeapoolPage implements OnInit, OnDestroy {
-  loadedIdeas: Idea[];
-  idea: Idea;
-  private ideaSub: Subscription;
-
+export class InvestorIdeapoolPage implements OnInit {
+viewIdeas: any;
+ideas: any;
+category: any;
+public fieldOptions = [
+  { value: 'Information Technology', displayValue: 'Information Technology' },
+  { value: 'Health', displayValue: 'Health' },
+  { value: 'Marketing', displayValue: 'Marketing'},
+];
   constructor(private ideaService: IdeaService,
-              private modalCtrl: ModalController
+              private router: Router,
+              private servicesService: ServicesService
               ) { }
 
   ngOnInit() {
-    this.ideaSub = this.ideaService.ideas.subscribe(ideas => {
-      this.loadedIdeas = ideas;
+    this.ideaService.ideas.subscribe(res => {
+        this.viewIdeas = res;
+        console.log(this.viewIdeas);
+      }
+      );
+  }
+  getCategory(category) {
+    console.log(category);
+    this.ideaService.categoryView(category)
+    .subscribe(res =>  {
+      this.ideas = res;
+      console.log(this.ideas);
     });
   }
-  onInvestIdea() {
-    this.modalCtrl.create({component: InvestComponent,
-                          componentProps: {selectedIdea: this.idea }
-                          })
-                          .then(modalEl => {
-                            modalEl.present();
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.ideaSub) {
-      this.ideaSub.unsubscribe();
-        }
+  viewIdea(ideaID) {
+    this.router.navigate(['investor-view-more'], { queryParams: { idea_id: ideaID } });
   }
 }

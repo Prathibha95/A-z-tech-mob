@@ -22,6 +22,12 @@ const routes: Routes = [
   // tslint:disable-next-line: max-line-length
   { path: 'investor-ideapool', loadChildren: './ideapool/investor-ideapool/investor-ideapool.module#InvestorIdeapoolPageModule' },
   { path: 'discover', loadChildren: './discover/discover.module#DiscoverPageModule' },
+  { path: 'investor-list', loadChildren: './investor-list/investor-list.module#InvestorListPageModule' },
+  // tslint:disable-next-line: max-line-length
+  { path: 'professional-edit-profile', loadChildren: './professional-edit-profile/professional-edit-profile.module#ProfessionalEditProfilePageModule' },
+  { path: 'investor-view-more', loadChildren: './investor-view-more/investor-view-more.module#InvestorViewMorePageModule' },
+  { path: 'investor-profile', loadChildren: './investor-profile/investor-profile.module#InvestorProfilePageModule' },
+  { path: 'edit-idea-form', loadChildren: './edit-idea-form/edit-idea-form.module#EditIdeaFormPageModule' },
 ];
 
 @NgModule({
