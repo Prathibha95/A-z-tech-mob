@@ -10,7 +10,6 @@ import { IdeaService } from '../ideapool/idea.service';
   styleUrls: ['./edit-idea-form.page.scss'],
 })
 export class EditIdeaFormPage implements OnInit {
-
   form;
   idea_id: any;
   idea = {
@@ -47,13 +46,15 @@ export class EditIdeaFormPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.idea_id = params['idea_id'];
     });
-    console.log(this.idea_id);
     this.ideaService.viewIdeaById(this.idea_id).subscribe( res => {
       const i = res;
+      console.log(i);
       this.idea.title = i.title;
       this.idea.content = i.content;
       this.idea.category = i.category;
     });
+    const iId = this.idea_id;
+    console.log(iId);
   }
   editIdea(form) {
     const i = form.value;

@@ -78,4 +78,7 @@ idea_id : any;
     this.router.navigate(['/ideapool']);
   }
 
+  goEdit(ideaID) {
+    this.router.navigate(['/edit-idea-form'],  { queryParams: { idea_id: ideaID } });
+  }
 }

@@ -83,7 +83,7 @@ export class InvestorLoginPage implements OnInit {
       if (res.success) {
         localStorage.setItem('token', res.token);
         this.presentValid();
-        this.router.navigate(['/ideapool']);
+        this.router.navigate(['/investor-ideapool']);
       } else {
         // console.log('hello');
         // this.presentInvalid();
