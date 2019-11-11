@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color = "secondary">
+  <ion-buttons slot="start">
+      <ion-back-button defaultHref="/ideapool"></ion-back-button>
+  <ion-title>Requests</ion-title>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container p-4">
+    <div *ngFor="let request of requests">
+        <div *ngIf="request.status === 'pending'">
+        <div class="card mb-3">
+              <div class="card-body">
+                  <p class="card-text">
+                    <a>investorProfile(request.from,request.username) ">{{request.username}}</a> 
+                    requested to invest to your idea 
+                      <a (click)="editIdea(request.idea)">{{request.ideaname}}</a></p>
+                <button class="btn btn-sm btn-success float-right mr-2" (click)="reqstatus('accepted',request._id)">Accept</button>
+                <button class="btn btn-sm btn-danger float-right mr-2" (click)="reqstatus('rejected',request._id)">Reject</button>
+            
+              </div>
+            </div>
+        </div>
+        <div *ngIf="request.status === 'accepted' || request.status === 'rejected'">
+            <div class="card mb-3">
+                  <div class="card-body">
+                      <p class="card-text">
+                          <ion-button (click)="investorProfile(request.from,request.username) ">{{request.username}}</ion-button> 
+                          requested to invest to your idea 
+                            <a (click)="editIdea(request.idea)">{{request.ideaname}}</a></p>
+                    <!-- <button class="btn btn-sm btn-success float-right mr-2" (click)="reqstatus('accepted',request._id)">Accept</button>
+                    <button class="btn btn-sm btn-danger float-right mr-2" (click)="reqstatus('rejected',request._id)">Reject</button> -->
+                
+                  </div>
+                </div>
+            </div>
+      </div>
+    </div>
+          <h4 >{{investorname}}</h4>
+                    <img [src]="profile.imageURL" height="150" width="150" class="rounded-circle">
+            <div class="container">
+            <div class="justify-content-center">
+            <p class="font-weight-bold justify-content-center">E-mail: {{profile.email}}</p>
+            <p class="font-weight-bold">Country: {{profile.country}}</p>
+            </div>
+          </div> 
+</ion-content>

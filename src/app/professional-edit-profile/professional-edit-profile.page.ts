@@ -12,13 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 export class ProfessionalEditProfilePage implements OnInit {
   form;
   @Input() fname;
-  @Input() lname;
+  @Input() lname; 
 
   editStage = false;
   users: any;
   uId: any;
   selectedFile: File = null;
-  url = '';
+  url = "";
   imageView = false;
 
   professional = {
@@ -118,7 +118,7 @@ editProfile() {
                   this.url = event.target['result'];
                 };
                 this.imageView = true;
-                this.selectedFile = event.target.files[0] as File;
+                this.selectedFile = event.target.files[0];
                   }
                 }
 }

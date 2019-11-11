@@ -3,10 +3,73 @@
       <ion-buttons slot= "start">
         <ion-back-button defaultHref ="/investor-ideapool"></ion-back-button>
       </ion-buttons>
-    <ion-title>investor Profile</ion-title>
+    <ion-title>Investor Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ professional.name }}</ion-card-title>
+        </ion-card-header>
+        </ion-card>
+        
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="avatar mx-auto white p-4">
+                <div class="view overlay">
+                  <img [src]="professional.imageURL" class="rounded-circle hoverable" height="170" width="170">
+                  <div class="mask flex-center rgba-black-light rounded-circle" style="height:170px; width:170px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+            </div>
+          </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col size-md = "6" offset-md = "3">
+                <div class="file-upload-wrapper">
+                    <input type="file" id="input-file-now" class="file-upload" (change)="onFileSelected($event)">
+                  </div>
+                  <div class="container p-1">
+                    <div class="row">
+                      <div class="col-md-4"></div>
+                      <div class="col-md-4">
+                        <img [src]="url" height="150" width="150" class="rounded-circle" *ngIf="imageView">
+                      </div>
+                      <div class="col-md-4"></div>
+                    </div>
+                  </div>
+                  <ion-button shape="round" color="medium" (click)="updateImage()">Save</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+                   
+          <form [formGroup]= "form" (ngSubmit)= "updateProfile(form)">
+            <ion-grid>
+              <ion-row>
+                <ion-col size-md = "6" offset-md = "3">
+                  <ion-card>
+                      <ion-item>
+                        <ion-input type="text" formControlName= "fname" [placeholder]= "professional.fname"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-input type="text" formControlName= "lname" [placeholder]= "professional.lname"></ion-input>
+                      </ion-item>
+                <div class="row">
+                  <div class="col-md-4"></div>
+                      <div class="col-md-4">
+                          <ion-button expand="block" color = "dark" type="submit" *ngIf="editStage">Save</ion-button>
+                              <ion-button expand="block" color = "dark" type="button" (click)="editProfile()" *ngIf="!editStage">Edit</ion-button>
+                      </div>
+                    <div class="col-md-4"></div>
+                </div>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+            <ion-button expand ="full" color = "primary" href ='/home' >LogOut</ion-button>
 </ion-content>

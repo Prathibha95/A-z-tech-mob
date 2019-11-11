@@ -28,6 +28,8 @@ const routes: Routes = [
   { path: 'investor-view-more', loadChildren: './investor-view-more/investor-view-more.module#InvestorViewMorePageModule' },
   { path: 'investor-profile', loadChildren: './investor-profile/investor-profile.module#InvestorProfilePageModule' },
   { path: 'edit-idea-form', loadChildren: './edit-idea-form/edit-idea-form.module#EditIdeaFormPageModule' },
+  { path: 'request', loadChildren: './request/request.module#RequestPageModule' },
+  { path: 'accept-request', loadChildren: './accept-request/accept-request.module#AcceptRequestPageModule' },
 ];
 
 @NgModule({

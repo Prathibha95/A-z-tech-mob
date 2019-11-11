@@ -104,22 +104,43 @@ private token: string;
   }
 
   registerUser(user) {
-    return this.http.post(environment.url + '/register', user).pipe(map((res:any) => res));
+    return this.http.post(environment.url + '/register', user).pipe(map((res: any) => res));
   }
 
   userProfile(uId) {
-    return this.http.get(environment.url + '/userProfile/' + uId).pipe(map((res:any) => res));
+    return this.http.get(environment.url + '/userProfile/' + uId).pipe(map((res: any) => res));
 }
 
 uploadImage(selectedFile: File, uId) {
   const fd = new FormData();
   fd.append('image', selectedFile, selectedFile.name);
-  return this.http.post(environment.url + '/userImageUpload/' + uId, fd).pipe(map((res:any) => res));
+  return this.http.post(environment.url + '/userImageUpload/' + uId, fd).pipe(map((res: any) => res));
 }
 
 editProfile(uId, user) {
-  return this.http.put(environment.url + '/editProfile/' + uId, user).pipe(map((res:any) => res));
+  return this.http.put(environment.url + '/editProfile/' + uId, user).pipe(map((res: any) => res));
 }
 
+sendRequest(fId, tId, iId, request) {
+  return this.http.post(environment.url + '/sendRequest/' + fId + '/' + tId + '/' + iId, request).pipe(map((res: any) => res));
+}
+
+requestStatus(uId, iId) {
+  return this.http.get(environment.url + '/requeststatus/' + uId + '/' + iId).pipe(map((res: any) => res));
+}
+
+viewRequest(uId){
+  return this.http.get(environment.url + '/viewRequest/' + uId).pipe(map((res: any) => res));
+}
+
+setStatus(uId, rId, statu) {
+  return this.http.put(environment.url + '/status/' + uId + '/' + rId, statu).pipe(map((res: any) => res));
+}
+getProfessionalProfile(uId) {
+  return this.http.get(environment.url + '/userProfile/' + uId).pipe(map((res: any) => res));
+}
+getAllRequests(email) {
+  return this.http.post('https://guarded-beyond-19031.herokuapp.com/viewAllRequests', { 'investor': email }).pipe(map((res: any) => res));
+}
 }
 

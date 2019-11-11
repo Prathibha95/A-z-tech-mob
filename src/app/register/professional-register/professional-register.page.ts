@@ -54,7 +54,7 @@ export class ProfessionalRegisterPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Register_Professional successfull...',
       position: 'middle',
-      color: 'light',
+      color: 'success',
       duration: 2000
     });
     toast.present();
